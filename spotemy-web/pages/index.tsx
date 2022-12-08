@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Container, Text, Button, Image } from '../components'
+import RecentlyPlayedPanel from '../layouts/RecentlyPlayedPanel'
 import TopArtistsPanel from '../layouts/TopArtistsPanel'
 import TopSongsPanel from '../layouts/TopSongsPanel'
 import UserPlaylistsPanel from '../layouts/UserPlaylistsPanel'
@@ -58,7 +59,7 @@ export default function Dashboard() {
 
     return (
         <Container
-            height="full-screen"
+            height={100}
             centerX
             paddingX={30}
             paddingY={30}
@@ -97,11 +98,12 @@ export default function Dashboard() {
 
             <Container
                 width={100}
-                height={100}
+                height="1000px"
                 padding={20}
                 horizontal
             >
                 <Container
+                    height={100}
                     width={25}
                     padding={{
                         right: 10
@@ -116,9 +118,11 @@ export default function Dashboard() {
                     <Container padding={{ bottom: 10 }}>
                         <TopSongsPanel />
                     </Container>
+                    <Container padding={{ bottom: 10 }}>
+                        <RecentlyPlayedPanel />
+                    </Container>
                 </Container>
             </Container>
-
         </Container>
     )
 }
