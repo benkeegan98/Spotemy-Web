@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Container, Image, Text } from "../components";
+import { BLACK, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
+import { useRouter } from "next/router";
 
 type UserPlaylistsPanelProps = {
 
@@ -8,46 +10,25 @@ type UserPlaylistsPanelProps = {
 
 const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
 
-    const [likedSongs, setLikedSongs] = useState<null | SpotifyApi.UsersSavedTracksResponse>(null);
-    const [playlists, setPlaylists] = useState<null | SpotifyApi.ListOfUsersPlaylistsResponse>(null);
+    const router = useRouter()
 
-    useEffect(() => {
-        
-        fetchPlaylists();
-        fetchLikedSongs();
+    const likedSongs = useLikedSongs();
+    const playlists = useMyPlaylists();
 
-    }, [])
-
-    const fetchPlaylists = async () => {
-        spotify.getUserPlaylists()
-            .then((playlistData: SpotifyApi.ListOfUsersPlaylistsResponse) => {
-                setPlaylists(playlistData);
-            })
-            .catch(err => {
-                console.log("Failed to get playlists");
-            })
+    const onClickPlaylist = (id: string) => {
+        router.push(`/playlist/${id}`)
     }
 
-    const fetchLikedSongs = async () => {
-        spotify.getMySavedTracks()
-            .then((tracks: SpotifyApi.UsersSavedTracksResponse) => {
-                setLikedSongs(tracks);
-            })
-            .catch(err => {
-                alert("Failed to get playlists");
-            })
-    }
-    
     return (
         <Container
-            backgroundColor="black"
+            backgroundColor={BLACK}
             borderRadius={20}
-            height={100}
+        height={100}
             width={100}
             padding={10}
         >
             <Text
-                color="white"
+                color={WHITE}
                 size={30}
                 padding={{
                     bottom: 10
@@ -62,19 +43,31 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                         padding={{
                             bottom: 5,
                         }}
+                        borderRadius={5}
+                        onClick={() => console.log('albums')}
                     >
-                        <Image
-                            src={likedSongs.items[0].track.album.images[0].url}
-                            height={100}
-                            width={100}
-                        />
+                        <Container
+                            height="100px"
+                            width="100px"
+                            horizontal
+                            wrap
+                        >
+                            {likedSongs.items.slice(0,4).map((track: SpotifyApi.SavedTrackObject, key: number) => (
+                                <Image
+                                    key={key}
+                                    src={track.track.album.images[0].url}
+                                    height={50}
+                                    width={50}
+                                />
+                            ))}
+                        </Container>
                         <Container
                             centerY
                             padding={{
                                 left: 10,
                             }}
                         >
-                            <Text color="white">Liked Songs</Text>
+                            <Text color={WHITE}>Liked Songs</Text>
                             <Text>{`${likedSongs.total} track${likedSongs.total !== 1 ? 's' : ''}`}</Text>
                         </Container>
                     </Container>
@@ -88,6 +81,8 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                         padding={{
                             bottom: 5,
                         }}
+                        borderRadius={5}
+                        onClick={() => onClickPlaylist(playlist.id)}
                     >
                         <Image
                             src={playlist.images[0].url}
@@ -100,7 +95,7 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                                 left: 10,
                             }}
                         >
-                            <Text color="white">{playlist.name}</Text>
+                            <Text color={WHITE}>{playlist.name}</Text>
                             <Text>{`${playlist.tracks.total} track${playlist.tracks.total !== 1 ? 's' : ''}`}</Text>
                         </Container>
                     </Container>
@@ -111,3 +106,50 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
 }
 
 export default UserPlaylistsPanel;
+
+const useLikedSongs = () => {
+    const [likedSongs, setLikedSongs] = useState<null | SpotifyApi.UsersSavedTracksResponse>(null);
+
+    useEffect(() => {
+        
+        fetchLikedSongs();
+
+    }, [])
+
+    const fetchLikedSongs = async () => {
+        spotify.getMySavedTracks()
+            .then((tracks: SpotifyApi.UsersSavedTracksResponse) => {
+                setLikedSongs(tracks);
+            })
+            .catch(err => {
+                alert("Failed to get playlists");
+            })
+    }
+
+    return likedSongs;
+
+}
+
+const useMyPlaylists = () => {
+
+    const [playlists, setPlaylists] = useState<null | SpotifyApi.ListOfUsersPlaylistsResponse>(null);
+
+    useEffect(() => {
+        
+        fetchPlaylists();
+
+    }, [])
+
+    const fetchPlaylists = async () => {
+        spotify.getUserPlaylists()
+            .then((playlistData: SpotifyApi.ListOfUsersPlaylistsResponse) => {
+                setPlaylists(playlistData);
+            })
+            .catch(err => {
+                console.log("Failed to get playlists");
+            })
+    }
+
+    return playlists;
+
+}

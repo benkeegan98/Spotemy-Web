@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { GREEN, GREEN_DARK_20, GREEN_LIGHT_20} from "../styles/colors";
+import { GREEN, GREEN_DARK_20, GREEN_LIGHT_20, WHITE} from "../styles/colors";
 
 interface ButtonProps {
     variant: "primary" | "secondary",
@@ -35,7 +35,7 @@ export default styled.button<ButtonProps>`
 
     ${props => props.variant == "primary" ? css`
         background-color: ${GREEN};
-        color: white;
+        color: ${WHITE};
 
         :hover {
             background-color: ${GREEN_LIGHT_20};

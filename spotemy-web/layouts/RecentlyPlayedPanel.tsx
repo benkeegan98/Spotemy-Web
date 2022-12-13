@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button, Container, Image, Text } from "../components";
-import { GREEN } from "../styles/colors";
+import { BLACK, GREEN, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
 
 type RecentlyPlayedPanelProps = {
@@ -17,7 +17,7 @@ const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
 
     else return (
         <Container
-            backgroundColor="black"
+            backgroundColor={BLACK}
             borderRadius={20}
             height={100}
             width={100}
@@ -30,11 +30,15 @@ const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
                     bottom: 10
                 }}
             >
-                <Text color="white" size={30}>Recently Played</Text>
+                <Text color={WHITE} size={30}>Recently Played</Text>
             </Container>
             <Container horizontal scroll>
                 {recentlyPlayedTracks && recentlyPlayedTracks.tracks && recentlyPlayedTracks.tracks.map((track: SpotifyApi.TrackObjectFull, index: number) => (
-                    <Container key={index}>
+                    <Container
+                        key={index}
+                        borderRadius={5}
+                        onClick={() => console.log('albums')}
+                    >
                         <Image
                             height={150}
                             width={150}
@@ -44,12 +48,12 @@ const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
                             }}
                         />
                         <Text
-                            color="white"
+                            color={WHITE}
                         >{track.name}</Text>
                         <Text
                         >{track.artists[0].name}</Text>
                         <Text
-                            color="white"
+                            color={WHITE}
                         >{track.album.name}</Text>
                         
                     </Container>

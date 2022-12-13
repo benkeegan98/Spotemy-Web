@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Container, Text, Button, Image } from '../components'
+import { Container, Text, Button, Image, LogoHeader } from '../components'
 import RecentlyPlayedPanel from '../layouts/RecentlyPlayedPanel'
 import TopArtistsPanel from '../layouts/TopArtistsPanel'
 import TopSongsPanel from '../layouts/TopSongsPanel'
@@ -7,8 +7,12 @@ import UserPlaylistsPanel from '../layouts/UserPlaylistsPanel'
 import spotify from '../spotify/api'
 import { authEndpoint, authUrl, loginUrl } from '../spotify/auth/spotify'
 import { clearUrlHash, getTokenFromUrl } from '../spotify/auth/utils'
+import { useRouter } from 'next/router';
+import { WHITE } from '../styles/colors'
 
 export default function Dashboard() {
+
+    const router = useRouter();
 
     const [spotifyToken, setSpotifyToken] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
@@ -64,35 +68,51 @@ export default function Dashboard() {
             paddingX={30}
             paddingY={30}
         >
-            <Text size={52}>Spotemy</Text>
-
+            <LogoHeader />
+            
             <Container
-                horizontal
-                centerY
                 width={100}
+                horizontal
+                justifyContent='space-between'
+                centerY
             >
-                <Image
-                    src={me!.images[0].url}
-                    height={150}
-                    width={150}
-                    circular
-                />
                 <Container
-                    padding={{
-                        left: 15
-                    }}
+                    horizontal
+                    centerY
+                    width={100}
                 >
-                    <Text
-                        color="white"
-                        size={30}
+                    <Image
+                        src={me!.images[0].url}
+                        height={150}
+                        width={150}
+                        circular
+                    />
+                    <Container
+                        padding={{
+                            left: 15
+                        }}
                     >
-                        {me!.display_name}
-                    </Text>
-                    <Text
-                        paddingY={5}
+                        <Text
+                            color={WHITE}
+                            size={30}
+                        >
+                            {me!.display_name}
+                        </Text>
+                        <Text
+                            paddingY={5}
+                        >
+                            {me!.id}
+                        </Text>
+                    </Container>
+                </Container>
+                <Container>
+                    <Button
+                        variant='primary'
+                        onClick={() => router.push('/discover') }
+                        padding={20}
                     >
-                        {me!.id}
-                    </Text>
+                        <Text size={25}>Discover</Text>
+                    </Button>
                 </Container>
             </Container>
 

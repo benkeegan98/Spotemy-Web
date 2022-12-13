@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { GREY_80, WHITE } from "../styles/colors";
 
 interface ContainerProps {
     backgroundColor?: "transparent" | string,
@@ -37,7 +38,9 @@ interface ContainerProps {
         bottom?: `${number}px`,
         left?: `${number}px`,
         right?: `${number}px`
-    }
+    },
+    wrap?: boolean,
+    onClick?: React.MouseEventHandler<HTMLDivElement>,
 }
 
 export default styled.div<ContainerProps>`
@@ -47,6 +50,9 @@ export default styled.div<ContainerProps>`
 
     display: flex;
     flex-direction: ${props => props.horizontal ? "row" : "column"};
+    ${props => props.wrap && css`
+        flex-wrap: wrap
+    `};
 
     justify-content: ${props => props.justifyContent || ""};
 
@@ -121,5 +127,19 @@ export default styled.div<ContainerProps>`
     right: ${props => (props.absolute && typeof props.absolute.right === "string") ? props.absolute.right : 
                     (props.relative && typeof props.relative.right === "string") ? props.relative.right :
     ""};
+
+    ${props => props.onClick && css`
+        cursor: pointer;
+        transition: 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+        :hover {
+            svg {
+                transition: 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+                color: ${WHITE};
+            }
+
+            background-color: ${GREY_80};
+        }
+        
+    `};
 
 `

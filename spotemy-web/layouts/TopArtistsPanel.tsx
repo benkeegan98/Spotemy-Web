@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button, Container, Image, Text } from "../components";
-import { GREEN } from "../styles/colors";
+import { GREEN, WHITE, BLACK } from "../styles/colors";
 import spotify from "../spotify/api";
 
 type TopArtistsPanelProps = {
@@ -39,7 +39,7 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
 
     else return (
         <Container
-            backgroundColor="black"
+            backgroundColor={BLACK}
             borderRadius={20}
             height={100}
             width={100}
@@ -52,7 +52,7 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                     bottom: 10
                 }}
             >
-                <Text color="white" size={30}>Top Artists</Text>
+                <Text color={WHITE} size={30}>Top Artists</Text>
                 <Container
                     horizontal
                 >
@@ -66,14 +66,18 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                             }}
                             padding={10}
                         >
-                            <Text color={activeTimeRange === timeFrame ? "" : "white"}>{timeFrame.label}</Text>
+                            <Text color={activeTimeRange === timeFrame ? "" : WHITE}>{timeFrame.label}</Text>
                         </Button>
                     ))}
                 </Container>
             </Container>
             <Container horizontal scroll>
                 {topArtists && topArtists.items && topArtists.items.map((artist, index) => (
-                    <Container key={index}>
+                    <Container
+                        key={index}
+                        borderRadius={5}
+                        onClick={() => console.log('albums')}
+                    >
                         <Container
                             backgroundColor={GREEN}
                             height="25px"
@@ -84,7 +88,7 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                             relative={{ top: "2px", left: "2px" }}
                             margin={{ bottom: -25 }}
                         >
-                            <Text color="white">{(index + 1).toString() + ''}</Text>
+                            <Text color={WHITE}>{(index + 1).toString() + ''}</Text>
                         </Container>
                         <Image
                             height={150}
@@ -95,7 +99,7 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                             }}
                         />
                         <Text
-                            color="white"
+                            color={WHITE}
                             paddingY={5}
                         >{artist.name}</Text>
                     </Container>

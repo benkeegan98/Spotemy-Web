@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components"
-import { GREEN } from "./colors";
+import { GREEN, GREY_80 } from "./colors";
 
 const GlobalStyle = createGlobalStyle`
     *{
@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background-color: #222;
+        background-color: ${GREY_80};
         color: ${GREEN}
     }
     
