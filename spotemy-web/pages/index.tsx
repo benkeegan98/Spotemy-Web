@@ -20,23 +20,9 @@ export default function Dashboard() {
 
     useEffect(() => {
 
-        const _spotifyToken = getTokenFromUrl()
-
-        setTimeout(() => {
-            if ('access_token' in _spotifyToken) {
-
-                clearUrlHash()
-                setSpotifyToken(_spotifyToken['access_token'])
-                spotify.setAccessToken(_spotifyToken['access_token'])
-    
-                spotify.getMe().then((user: SpotifyApi.CurrentUsersProfileResponse) => {
-                    setMe(user);
-                })
-    
-            } else {
-                window.location.href = authUrl
-            }
-        }, 500)
+        spotify.getMe().then((user: SpotifyApi.CurrentUsersProfileResponse) => {
+            setMe(user);
+        })
         
     }, [])
 

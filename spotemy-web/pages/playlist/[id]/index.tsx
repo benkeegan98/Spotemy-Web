@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Container, Image, LogoHeader, Text } from '../../../components';
 import { BLACK, WHITE, GREEN_LIGHT_20 } from '../../../styles/colors';
 import spotify from '../../../spotify/api';
-import SpotifyWebApi from 'spotify-web-api-js';
 import { IoMusicalNotesSharp, IoPerson } from 'react-icons/io5';
 import { MdPublic, MdPublicOff } from 'react-icons/md';
 import { RiDiscFill } from 'react-icons/ri';
@@ -23,8 +22,7 @@ const PlaylistPage = () => {
     return (
         <Container
             centerX
-            paddingX={30}
-            paddingY={30}
+            padding={30}
         >
             <LogoHeader />
 
@@ -37,7 +35,7 @@ const PlaylistPage = () => {
             >
                 <Container horizontal padding={{ bottom: 20 }}>
                     <Image height={150} width={150} src={playlist.images[0].url}/>
-                    <Container width={100} padding={{ left: 15, }}>
+                    <Container width={100} paddingX={15}>
                         <Container padding={{ bottom: 20, }}>
                             <Text color={WHITE} size={40} padding={{ bottom: 5, }}>{playlist.name}</Text>
                             {playlist.description ? (

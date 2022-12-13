@@ -1,41 +1,45 @@
 import React, { Component, useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import SpotifyWebApi from 'spotify-web-api-js';
+import spotify from '../spotify/api';
 
-const AuthContext = React.createContext<string>("auth");
+const AuthContext = React.createContext<AuthContextValueProps | null>(null);
+
+interface AuthContextValueProps {
+    token: string,
+    setToken: (token: string) => void
+}
 
 export const AuthStore = (props) => {
 
-    const [token, setToken] = useState(null);
+    const router = useRouter();
+
+    const [token, setToken] = useState<string>(null);
     const [expirationTime, setExpirationTime] = useState(null);
     const [refreshToken, setRefreshToken] = useState(null);
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const setSpotifyClient = async (accessToken) => {
-    //         let spotifyClient = new SpotifyWebAPI();
-    //         spotifyClient.setAccessToken(accessToken);
-    //         setSpotify(spotifyClient);
-    //     }
+        const setSpotifyClient = async (accessToken) => {
+            spotify.setAccessToken(accessToken);
+            router.replace("/");
+        }
 
-    //     if(token) {
-    //         setSpotifyClient(token)
-    //     }
-    // }, [token])
+        if(token) {
+            setSpotifyClient(token)
+        }
+    }, [token])
 
-    // return (
-    //     <AuthContext.Provider value={{
-    //         token,
-    //         setToken,
-    //         expirationTime,
-    //         setExpirationTime,
-    //         refreshToken,
-    //         setRefreshToken,
+    const providerValue : AuthContextValueProps = {
+        token,
+        setToken
+    }
 
-    //         spotify,
-    //         setSpotify,
-    //     }}>
-    //         {props.children}
-    //     </AuthContext.Provider>
-    // )
+    return (
+        <AuthContext.Provider value={providerValue}>
+            {props.children}
+        </AuthContext.Provider>
+    )
 }
 
 export default AuthContext;

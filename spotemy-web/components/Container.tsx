@@ -23,8 +23,8 @@ interface ContainerProps {
     },
     marginY?: number,
     marginX?: number,
-    width?: "full-screen" | "auto" | number | `${number}px`,
-    height?: "full-screen" | "auto" | number | `${number}px`,
+    width?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
+    height?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
     borderRadius?: number,
     scroll?: boolean,
     absolute?: {
@@ -61,16 +61,12 @@ export default styled.div<ContainerProps>`
     width: ${props => props.width ?
         props.width == "full-screen" ? "100vw"
         :
-        props.width == "auto" ? "auto"
-        :
         typeof props.width === "number" ? `${props.width > 100 ? 100 : props.width}%`
         :
         props.width
     : ""};
     height: ${props => props.height ?
         props.height == "full-screen" ? "100vh"
-        :
-        props.width == "auto" ? "auto"
         :
         typeof props.height === "number" ? `${props.height > 100 ? 100 : props.height}%`
         :

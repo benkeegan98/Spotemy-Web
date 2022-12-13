@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button, Container, Image, Text } from "../components";
 import { GREEN, WHITE, BLACK } from "../styles/colors";
@@ -29,9 +30,15 @@ const timeFrames = {
 
 const TopArtistsPanel = (props: TopArtistsPanelProps) => {
 
+    const router = useRouter();
+
     const [activeTimeRange, setActiveTimeRange] = useState<TimeFrame>(timeFrames.MEDIUM);
 
     const topArtists = useTopArtists(activeTimeRange);
+
+    const onClickArtist = (id: string) => {
+        router.push(`/artist/${id}`);
+    }
 
     if(!topArtists) {
         return null;
@@ -76,7 +83,7 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                     <Container
                         key={index}
                         borderRadius={5}
-                        onClick={() => console.log('albums')}
+                        onClick={() => onClickArtist(artist.id)}
                     >
                         <Container
                             backgroundColor={GREEN}
