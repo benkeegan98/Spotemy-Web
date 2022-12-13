@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Container, Image, LogoHeader, Text } from '../../../components';
-import { BLACK, WHITE, GREEN_LIGHT_20, GREEN_LIGHT_40, GREEN_LIGHT_80, GREEN_LIGHT_60 } from '../../../styles/colors';
+import { BLACK, WHITE, GREY_20, GREEN_LIGHT_20, GREEN_LIGHT_40, GREEN_LIGHT_80, GREEN_LIGHT_60, GREY_80 } from '../../../styles/colors';
 import spotify from '../../../spotify/api';
 import { AiFillFire } from 'react-icons/ai';
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -35,7 +35,7 @@ const ArtistPage = () => {
                 height={100}
                 padding={30}
             >
-                <Container horizontal>
+                <Container horizontal width={100}>
                     <Image src={artist.images[0].url} height={150} width={150} circular />
                     <Container width={100} paddingX={15}>
                         <Container horizontal justifyContent='space-between'>
@@ -55,7 +55,25 @@ const ArtistPage = () => {
                                 )
                             })}
                         </Container>
-                        <Container>
+
+                        <Container width={100}>
+                            <Text color={WHITE} size={30}>Top Tracks</Text>
+                            <Container
+                                borderRadius={15}
+                                horizontal
+                                scroll
+                                width={'auto'}
+                            >
+                                {topTracks ? topTracks.map((track: SpotifyApi.TrackObjectFull, i: number) => (
+                                    <Container horizontal>
+                                        <Image src={track.album.images[0].url} height={80} width={80} circular/>
+                                        <Container>
+                                            <Text color={WHITE} size={20}>{track.name}</Text>
+                                            <Text>{track.duration_ms}</Text>
+                                        </Container>
+                                    </Container>
+                                )) : null}
+                            </Container>
                         </Container>
                         
                     </Container>
@@ -107,15 +125,17 @@ const PopularityFlame = ({
     const color = getColor(score);
     const iconSize = size === 'large' ? 100 : 60;
     const textSize = size === 'large' ? 38 : 20;
-    const textPosition = size === 'large' ? '-58px' : '-33px';
+    const textPosition = size === 'large' ? -58 : -33;
 
     return (
-        <Container width={'fit-content'} centerX centerY>
+        <Container width={'fit-content'} height={'fit-content'} centerX centerY>
             <AiFillFire color={color} size={iconSize} />
-            <Container relative={{ top: textPosition }}>
+            <Container
+                relative={{ top: `${textPosition}px` }}
+                margin={{ bottom: textPosition}}
+            >
                 <Text size={textSize} color={WHITE}>{score}</Text>
             </Container>
-            
         </Container>
     )
 }
@@ -124,7 +144,7 @@ const PopularityFlame = ({
 const useArtist = (id: string) => {
 
     const [artist, setArtist] = useState<null | SpotifyApi.SingleArtistResponse>(null);
-    const [topTracks, setTopTracks] = useState<null | SpotifyApi.ArtistsTopTracksResponse>(null);
+    const [topTracks, setTopTracks] = useState<null | SpotifyApi.TrackObjectFull[]>(null);
     const [relatedArtists, setRelatedArtists] = useState<null | SpotifyApi.ArtistsRelatedArtistsResponse>(null);
 
     useEffect(() => {
@@ -145,7 +165,7 @@ const useArtist = (id: string) => {
         spotify.getArtistTopTracks(artistId, 'US')
             .then((artistTopTracks: SpotifyApi.ArtistsTopTracksResponse) => {
                 console.log
-                setTopTracks(artistTopTracks)
+                setTopTracks(artistTopTracks.tracks)
             })
             .catch((error ) => {
                 console.error("ERROR: ", error)
