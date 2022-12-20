@@ -5,8 +5,6 @@ import TopArtistsPanel from '../layouts/TopArtistsPanel'
 import TopSongsPanel from '../layouts/TopSongsPanel'
 import UserPlaylistsPanel from '../layouts/UserPlaylistsPanel'
 import spotify from '../spotify/api'
-import { authEndpoint, authUrl, loginUrl } from '../spotify/auth/spotify'
-import { clearUrlHash, getTokenFromUrl } from '../spotify/auth/utils'
 import { useRouter } from 'next/router';
 import { WHITE } from '../styles/colors'
 import AuthContext from '../contexts/AuthContext'
