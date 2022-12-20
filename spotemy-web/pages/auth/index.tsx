@@ -20,7 +20,7 @@ export default function AuthPage() {
 		// setTimeout(() => {
 		if ('access_token' in _spotifyToken) {
 			clearUrlHash()
-			setToken(_spotifyToken['access_token'])
+			setToken(_spotifyToken['access_token'] as string)
 		}
 		// }, 500)
     
