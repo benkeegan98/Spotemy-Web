@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Container, Text, Button, Image, LogoHeader } from '../components'
 import RecentlyPlayedPanel from '../layouts/RecentlyPlayedPanel'
 import TopArtistsPanel from '../layouts/TopArtistsPanel'
@@ -9,10 +9,13 @@ import { authEndpoint, authUrl, loginUrl } from '../spotify/auth/spotify'
 import { clearUrlHash, getTokenFromUrl } from '../spotify/auth/utils'
 import { useRouter } from 'next/router';
 import { WHITE } from '../styles/colors'
+import AuthContext from '../contexts/AuthContext'
 
 export default function Dashboard() {
 
     const router = useRouter();
+
+    const authContext = useContext(AuthContext);
 
     const [spotifyToken, setSpotifyToken] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
@@ -20,9 +23,15 @@ export default function Dashboard() {
 
     useEffect(() => {
 
-        spotify.getMe().then((user: SpotifyApi.CurrentUsersProfileResponse) => {
-            setMe(user);
-        })
+        if (authContext.token) {
+            spotify.getMe().then((user: SpotifyApi.CurrentUsersProfileResponse) => {
+                setMe(user);
+            })
+        } else {
+            router.replace('/auth')
+        }
+
+        
         
     }, [])
 

@@ -24,7 +24,11 @@ interface ContainerProps {
     marginY?: number,
     marginX?: number,
     width?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
+    minWidth?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
+    maxWidth?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
     height?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
+    minHeight?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
+    maxHeight?: "full-screen" | "auto" | "fit-content" | number | `${number}px`,
     borderRadius?: number,
     scroll?: boolean,
     absolute?: {
@@ -71,6 +75,34 @@ export default styled.div<ContainerProps>`
         typeof props.height === "number" ? `${props.height > 100 ? 100 : props.height}%`
         :
         props.height
+    : ""};
+    min-width: ${props => props.minWidth ?
+        props.minWidth == "full-screen" ? "100vw"
+        :
+        typeof props.minWidth === "number" ? `${props.minWidth > 100 ? 100 : props.minWidth}%`
+        :
+        props.minWidth
+    : ""};
+    max-width: ${props => props.maxWidth ?
+        props.maxWidth == "full-screen" ? "100vw"
+        :
+        typeof props.maxWidth === "number" ? `${props.maxWidth > 100 ? 100 : props.maxWidth}%`
+        :
+        props.maxWidth
+    : ""};
+    min-height: ${props => props.minHeight ?
+        props.minHeight == "full-screen" ? "100vw"
+        :
+        typeof props.minHeight === "number" ? `${props.minHeight > 100 ? 100 : props.minHeight}%`
+        :
+        props.minHeight
+    : ""};
+    max-height: ${props => props.maxHeight ?
+        props.maxHeight == "full-screen" ? "100vw"
+        :
+        typeof props.maxHeight === "number" ? `${props.maxHeight > 100 ? 100 : props.maxHeight}%`
+        :
+        props.maxHeight
     : ""};
 
     padding: ${props => props.padding ? 

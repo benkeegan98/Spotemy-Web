@@ -13,7 +13,9 @@ const PlaylistPage = () => {
     const playlistId = router.query.id as string;
     const playlist = usePlaylist(playlistId);
 
-    console.log("PLAYLIST: ", playlist)
+    const onClickSong = (id: string) => {
+        router.push(`/song/${id}`);
+    }
 
     if (!playlist) {
         return null;
@@ -72,7 +74,7 @@ const PlaylistPage = () => {
                                 horizontal
                                 marginY={5}
                                 centerY
-                                onClick={() => console.log(track)}>
+                                onClick={() => onClickSong(track.id)}>
                                 <Image
                                     src={track.album.images[0].url}
                                     height={80}

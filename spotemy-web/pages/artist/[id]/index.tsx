@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Container, Image, LogoHeader, Text, PopularityFlame } from '../../../components';
 import { BLACK, WHITE, GREY_20, GREEN_LIGHT_20, GREEN_LIGHT_40, GREEN_LIGHT_80, GREEN_LIGHT_60, GREY_80 } from '../../../styles/colors';
 import spotify from '../../../spotify/api';
+import { getDurationString } from '../../../utils';
 
 const ArtistPage = () => {
     const router = useRouter();
@@ -13,6 +14,10 @@ const ArtistPage = () => {
     console.log("ARTIST: ", artist);
     console.log("TOP TRACKS: ", topTracks);
     console.log("RELATED ARTISTS: ", relatedArtists);
+
+    const onClickSong = (id: string) => {
+        router.push(`/song/${id}`);
+    }
 
     if (!artist) {
         return null;
@@ -44,7 +49,7 @@ const ArtistPage = () => {
                             {artist.genres.map((genre: string, i: number) => {
                                 genre = genre.split(" ").map(word => word[0].toUpperCase() + word.substring(1)).join(" ");
                                 return (
-                                    <Container horizontal centerY>
+                                    <Container key={i} horizontal centerY>
                                         <Text>{genre}</Text>
                                         {i !== artist.genres.length - 1 ? (
                                             <Text paddingX={10} size={30} color={WHITE}>·</Text>
@@ -53,27 +58,40 @@ const ArtistPage = () => {
                                 )
                             })}
                         </Container>
+                    </Container>
+                </Container>
 
-                        <Container width={100}>
-                            <Text color={WHITE} size={30}>Top Tracks</Text>
+                <Container width={100} paddingY={10}>
+                    <Text color={WHITE} size={30} padding={{ bottom: 10}}>Top Tracks</Text>
+                    <Container
+                        borderRadius={15}
+                        horizontal
+                        scroll
+                        width={'auto'}
+                    >
+                        {topTracks ? topTracks.map((track: SpotifyApi.TrackObjectFull, i: number) => (
                             <Container
-                                borderRadius={15}
                                 horizontal
-                                scroll
-                                width={'auto'}
+                                borderRadius={15}
+                                padding={5}
+                                centerY
+                                centerX
+                                minWidth="200px"
+                                maxHeight="100px"
+                                onClick={() => onClickSong(track.id)}
                             >
-                                {topTracks ? topTracks.map((track: SpotifyApi.TrackObjectFull, i: number) => (
-                                    <Container horizontal>
-                                        <Image src={track.album.images[0].url} height={80} width={80} circular/>
-                                        <Container>
-                                            <Text color={WHITE} size={20}>{track.name}</Text>
-                                            <Text>{track.duration_ms}</Text>
-                                        </Container>
-                                    </Container>
-                                )) : null}
+                                <Image 
+                                    src={track.album.images[0].url}
+                                    height={80}
+                                    width={80}
+                                    circular
+                                />
+                                <Container paddingX={10}>
+                                    <Text color={WHITE} size={16}>{track.name}</Text>
+                                    <Text>{getDurationString(track.duration_ms)}</Text>
+                                </Container>
                             </Container>
-                        </Container>
-                        
+                        )) : null}
                     </Container>
                 </Container>
             </Container>

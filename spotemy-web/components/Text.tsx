@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface TextProps {
     size?: number,
@@ -11,6 +11,7 @@ interface TextProps {
     },
     paddingY?: number,
     paddingX?: number,
+    onClick?: React.MouseEventHandler<HTMLSpanElement>
 }
 
 const Text = styled.span<TextProps>`
@@ -24,6 +25,14 @@ const Text = styled.span<TextProps>`
         : 
         `${props.paddingY || 0}px ${props.paddingX || 0}px`
     };
+
+    ${props => props.onClick && css`
+        cursor: pointer;
+        :hover {
+            text-decoration: underline;
+        }
+        
+    `}
 `
 
 export default Text;

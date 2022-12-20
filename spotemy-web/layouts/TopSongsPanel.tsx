@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button, Container, Image, Text } from "../components";
 import { BLACK, GREEN, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
+import { useRouter } from "next/router";
 
 type TopSongsPanelProps = {
 
@@ -29,9 +30,15 @@ const timeFrames = {
 
 const TopSongsPanel = (props: TopSongsPanelProps) => {
 
+    const router = useRouter();
+
     const [activeTimeRange, setActiveTimeRange] = useState<TimeFrame>(timeFrames.MEDIUM);
 
     const topSongs = useTopSongs(activeTimeRange);
+
+    const onClickSong = (id: string) => {
+        router.push(`/song/${id}`)
+    }
 
     if(!topSongs) {
         return null;
@@ -76,7 +83,7 @@ const TopSongsPanel = (props: TopSongsPanelProps) => {
                     <Container
                         key={index}
                         borderRadius={5}
-                        onClick={() => console.log('albums')}
+                        onClick={() => onClickSong(song.id)}
                     >
                         <Container
                             backgroundColor={GREEN}

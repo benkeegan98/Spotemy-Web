@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button, Container, Image, Text } from "../components";
 import { BLACK, GREEN, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
+import { useRouter } from "next/router";
 
 type RecentlyPlayedPanelProps = {
 
@@ -9,7 +10,13 @@ type RecentlyPlayedPanelProps = {
 
 const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
 
+    const router = useRouter();
+
     const recentlyPlayedTracks = useRecentlyPlayed();
+
+    const onClickSong = (id: string) => {
+        router.push(`/song/${id}`)
+    }
 
     if(!recentlyPlayedTracks) {
         return null;
@@ -37,7 +44,7 @@ const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
                     <Container
                         key={index}
                         borderRadius={5}
-                        onClick={() => console.log('albums')}
+                        onClick={() => onClickSong(track.id)}
                     >
                         <Image
                             height={150}
