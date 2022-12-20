@@ -8,10 +8,12 @@ import spotify from '../spotify/api'
 import { useRouter } from 'next/router';
 import { WHITE } from '../styles/colors'
 import AuthContext from '../contexts/AuthContext'
+import { useDesktopBreakpoints } from '../hooks'
 
 export default function Dashboard() {
 
     const router = useRouter();
+    const isDesktop = useDesktopBreakpoints();
 
     const authContext = useContext(AuthContext);
 
@@ -58,8 +60,8 @@ export default function Dashboard() {
         <Container
             height={100}
             centerX
-            paddingX={30}
-            paddingY={30}
+            paddingX={15}
+            paddingY={15}
         >
             <LogoHeader />
             
@@ -109,22 +111,40 @@ export default function Dashboard() {
                 </Container>
             </Container>
 
-            <Container
-                width={100}
-                height="1000px"
-                padding={20}
-                horizontal
-            >
+            {isDesktop ? (
                 <Container
-                    height={100}
-                    width={25}
-                    padding={{
-                        right: 10
-                    }}
+                    width={100}
+                    height="1000px"
+                    padding={20}
+                    horizontal
                 >
-                    <UserPlaylistsPanel />
+                    <Container
+                        height={100}
+                        width={25}
+                        padding={{
+                            right: 10
+                        }}
+                    >
+                        <UserPlaylistsPanel />
+                    </Container>
+                    <Container width={75}>
+                        <Container padding={{ bottom: 10 }}>
+                            <TopArtistsPanel />
+                        </Container>
+                        <Container padding={{ bottom: 10 }}>
+                            <TopSongsPanel />
+                        </Container>
+                        <Container padding={{ bottom: 10 }}>
+                            <RecentlyPlayedPanel />
+                        </Container>
+                    </Container>
                 </Container>
-                <Container width={75}>
+            ) : (
+                <Container
+                    width={100}
+                    height="fit-content"
+                    padding={20}
+                >
                     <Container padding={{ bottom: 10 }}>
                         <TopArtistsPanel />
                     </Container>
@@ -132,10 +152,15 @@ export default function Dashboard() {
                         <TopSongsPanel />
                     </Container>
                     <Container padding={{ bottom: 10 }}>
+                        <UserPlaylistsPanel />
+                    </Container>
+                    <Container padding={{ bottom: 10 }}>
                         <RecentlyPlayedPanel />
                     </Container>
                 </Container>
-            </Container>
+            )}
+
+            
         </Container>
     )
 }

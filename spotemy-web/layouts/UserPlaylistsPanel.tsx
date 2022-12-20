@@ -3,6 +3,7 @@ import { Container, Image, Text } from "../components";
 import { BLACK, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
 import { useRouter } from "next/router";
+import { useDesktopBreakpoints } from "../hooks";
 
 type UserPlaylistsPanelProps = {
 
@@ -10,7 +11,8 @@ type UserPlaylistsPanelProps = {
 
 const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
 
-    const router = useRouter()
+    const router = useRouter();
+    const isDesktop = useDesktopBreakpoints();
 
     const likedSongs = useLikedSongs();
     const playlists = useMyPlaylists();
@@ -23,7 +25,7 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
         <Container
             backgroundColor={BLACK}
             borderRadius={20}
-        height={100}
+            height={100}
             width={100}
             padding={10}
         >
@@ -34,30 +36,35 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                     bottom: 10
                 }}
             >My Playlists</Text>
-            <Container scroll>
+            <Container
+                scroll
+                horizontal={!isDesktop}
+            >
                 {likedSongs && likedSongs.items && (
                     <Container
                         height="auto"
                         width={100}
-                        horizontal
+                        horizontal={isDesktop}
                         padding={{
                             bottom: 5,
+                            right: isDesktop ? 0 : 5
                         }}
                         borderRadius={5}
                         onClick={() => console.log('albums')}
                     >
                         <Container
-                            height="100px"
-                            width="100px"
+                            height={isDesktop ? "100px" : "150px"}
+                            width={isDesktop ? "100px" : "150px"}
                             horizontal
                             wrap
+                            
                         >
                             {likedSongs.items.slice(0,4).map((track: SpotifyApi.SavedTrackObject, key: number) => (
                                 <Image
                                     key={key}
                                     src={track.track.album.images[0].url}
-                                    height={50}
-                                    width={50}
+                                    height={isDesktop ? 50 : 75}
+                                    width={isDesktop ? 50 : 75}
                                 />
                             ))}
                         </Container>
@@ -76,18 +83,19 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                 {playlists && playlists.items && playlists.items.map((playlist: SpotifyApi.PlaylistObjectSimplified, index: number) => (
                     <Container
                         height="auto"
-                        width={100}
-                        horizontal
+                        width={isDesktop ? 100 : 150}
+                        horizontal={isDesktop}
                         padding={{
                             bottom: 5,
+                            right: isDesktop ? 0 : 5
                         }}
                         borderRadius={5}
                         onClick={() => onClickPlaylist(playlist.id)}
                     >
                         <Image
                             src={playlist.images[0].url}
-                            height={100}
-                            width={100}
+                            height={isDesktop ? 100 : 150}
+                            width={isDesktop ? 100 : 150}
                         />
                         <Container
                             centerY
