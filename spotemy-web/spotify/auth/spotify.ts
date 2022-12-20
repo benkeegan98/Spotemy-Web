@@ -1,9 +1,10 @@
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 
-export const authUrl = "http://localhost:3000/auth"
+// export const authUrl = "http://localhost:3000/auth"
+export const authUrl = "https://spotemy.vercel.app";
 
 // const redirectEndpoint = "http://localhost:3000/auth";
-const redirectEndpoint = "https://spotemy-web.vercel.app/auth";
+const redirectEndpoint = "https://spotemy.vercel.app/auth";
 
 const clientId = "dae6ca4ae9c9447b99282a59e708b72d";
 
