@@ -10,6 +10,7 @@ import { WHITE } from '../styles/colors'
 import AuthContext from '../contexts/AuthContext'
 import { useDesktopBreakpoints } from '../hooks'
 import {loginUrl} from "../spotify/auth/spotify";
+import {getTokenFromStorage, hasTokenExpired} from "../spotify/auth/utils";
 
 export default function Dashboard() {
 
@@ -23,42 +24,27 @@ export default function Dashboard() {
     const [me, setMe] = useState<null | SpotifyApi.CurrentUsersProfileResponse>(null);
 
     useEffect(() => {
-        // expire "1698195403974"
         // if never set token in storage, go to auth screen to log in
-        const sessionToken: string = window.localStorage.getItem("spotify__token");
-        console.log("hit /, sessionToken: ", sessionToken);
+        const sessionToken: string = getTokenFromStorage();
         if (!sessionToken) {
-            console.log("NEVER LOGGED IN")
             router.replace('/auth');
             return;
         }
 
-        // you have set it in storage before
-        // now need to figure out if it is still active or dead
-        // if active, we set accessToken if we need to, and getMe
-        // else if dead, redirect to loginUrl (which will redirect to auth for you to catch new token)
-        const tokenExpiresIn: number = parseInt(window.localStorage.getItem("spotify__token-expires-in"));
-        const tokenCreationTime: number = parseInt(window.localStorage.getItem("spotify__token-time"));
-        const expirationTime: number = tokenCreationTime + tokenExpiresIn;
-
-        console.log("expires in: ",tokenExpiresIn, tokenCreationTime, expirationTime, expirationTime - new Date().getTime())
-        // if still active
-        if (expirationTime > new Date().getTime()) {
-            console.log("STILL ACTIVE");
-            if (!spotify.getAccessToken()) {
-                console.log("Setting spotify access token on API object...");
-                spotify.setAccessToken(sessionToken)
-            }
-            console.log("Getting me...");
-            spotify.getMe().then((user: SpotifyApi.CurrentUsersProfileResponse) => {
-                console.log("Setting me...");
-                setMe(user);
-            })
-            return;
+        // you have logged in before
+        // has your token expired? redirect to loginUrl
+        if (hasTokenExpired()) {
+            window.location.href = loginUrl
         }
 
-        console.log("Token expired, redirecting to loginUrl...");
-        window.location.href = loginUrl
+        // access token is active
+        spotify.setAccessToken(sessionToken)
+
+        spotify.getMe().then((user: SpotifyApi.CurrentUsersProfileResponse): void => {
+            setMe(user);
+        })
+        return;
+
     }, [])
 
     useEffect(() => {
