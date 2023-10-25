@@ -38,11 +38,11 @@ const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
                          onClick={() => onClickSong(track.id)}
                     >
                         <Image
-                            height={150}
-                            width={150}
+                            height={100}
+                            width={100}
                             src={track.album.images[0].url}
                         />
-                        <Container paddingX={2}>
+                        <Container className="dashboard-stats-panel__list-item-text" paddingX={2}>
                             <Text
                                 color={WHITE}
                             >{track.name}</Text>

@@ -11,7 +11,8 @@ interface TextProps {
     },
     paddingY?: number,
     paddingX?: number,
-    onClick?: React.MouseEventHandler<HTMLSpanElement>
+    onClick?: React.MouseEventHandler<HTMLSpanElement>,
+    className?: string
 }
 
 const Text = styled.span<TextProps>`

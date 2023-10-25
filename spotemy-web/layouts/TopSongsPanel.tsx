@@ -72,6 +72,7 @@ const TopSongsPanel = (props: TopSongsPanelProps) => {
                          onClick={() => onClickSong(song.id)}
                     >
                         <Container
+                            className="dashboard-stats-panel__list-item-rank-circle"
                             backgroundColor={GREEN}
                             height="25px"
                             width="25px"
@@ -84,14 +85,14 @@ const TopSongsPanel = (props: TopSongsPanelProps) => {
                             <Text color={WHITE}>{(index + 1).toString() + ''}</Text>
                         </Container>
                         <Image
-                            height={150}
-                            width={150}
+                            height={100}
+                            width={100}
                             src={song.album.images[0].url}
                             padding={{
                                 right: 5
                             }}
                         />
-                        <Container paddingX={2}>
+                        <Container className="dashboard-stats-panel__list-item-text" paddingX={2}>
                             <Text
                                 color={WHITE}
                             >{song.name}</Text>

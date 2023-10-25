@@ -27,7 +27,7 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
             <div className="dashboard-stats-panel__header">
                 <div className="dashboard-stats-panel__icon-title">
                     <RiDiscFill size={30}/>
-                    <Text color={WHITE} size={30} padding={{ bottom: 10 }}>My Playlists</Text>
+                    <Text color={WHITE} size={30}>My Playlists</Text>
                 </div>
             </div>
             <div className="playlists__list">
@@ -38,8 +38,8 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                                 <Image
                                     key={key}
                                     src={track.track.album.images[0].url}
-                                    height={75}
-                                    width={75}
+                                    height={50}
+                                    width={50}
                                 />
                             ))}
                         </div>
@@ -59,8 +59,8 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
                         <div className="playlist-item__thumbnail">
                             <Image
                                 src={playlist.images[0].url}
-                                height={150}
-                                width={150}
+                                height={100}
+                                width={100}
                             />
                         </div>
                         <div className="playlist-item__label">

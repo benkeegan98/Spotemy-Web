@@ -47,6 +47,7 @@ interface ContainerProps {
     gapY?: number,
     wrap?: boolean,
     onClick?: React.MouseEventHandler<HTMLDivElement>,
+    className?: string,
 }
 
 export default styled.div<ContainerProps>`

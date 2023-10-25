@@ -8,12 +8,16 @@
 
   @media (min-width: 767px) {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: min-content min-content min-content;
     grid-template-areas:
     "playlists artists"
     "playlists songs"
     "playlists recents";
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: 1fr 3fr;
   }
 }
 
@@ -77,14 +81,16 @@
 .playlist-item {
   display: grid;
   grid-template-columns: min-content;
-  grid-template-rows: 150px min-content;
+  grid-template-rows: 100px min-content;
   grid-template-areas: "thumbnail" "data";
   grid-gap: 7px;
   @media (min-width: 767px) {
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 100px 1fr;
     grid-template-rows: min-content;
     grid-template-areas: "thumbnail data";
   }
+
+  cursor: pointer;
 }
 
 .playlist-item__label {
@@ -102,14 +108,14 @@
   grid-area: thumbnail;
 
   display: grid;
-  grid-template-rows: 75px 75px;
-  grid-template-columns: 75px 75px;
+  grid-template-rows: 50px 50px;
+  grid-template-columns: 50px 50px;
 }
 
 .playlist-item__thumbnail {
   grid-area: thumbnail;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
 }
 
 // right panels desktop
@@ -119,8 +125,6 @@
   justify-content: space-between;
   padding: 7px 0 15px;
 }
-
-.
 
 .dashboard-stats-panel__icon-title {
   display: flex;
@@ -134,4 +138,83 @@
   overflow-x: auto;
   overflow-y: clip;
   column-gap: 7px;
+}
+
+.dashboard-stats-panel__list-item {
+  cursor: pointer;
+  //transition: transform 0.5s ease-in-out;
+
+  @keyframes growImage {
+    0% {
+      transform: scale(1); /* Initial scale */
+    }
+    25% {
+      transform: scale(1.4); /* Grow to 1.5 scale at 50% of animation */
+    }
+    50% {
+      transform: scale(1.2); /* Settle at 1.2 scale at the end of the animation */
+    }
+    100% {
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes shiftTextDown {
+    0% {
+      transform: translateY(0); /* Initial scale */
+    }
+    25% {
+      transform: translateY(15px);  /* Grow to 1.5 scale at 50% of animation */
+    }
+    50% {
+      transform: translateY(10px);  /* Settle at 1.2 scale at the end of the animation */
+    }
+    100% {
+      transform: translateY(10px);
+    }
+  }
+
+  @keyframes shiftRankCircle {
+    0% {
+      transform: translate(0,0); /* Initial scale */
+    }
+    25% {
+      transform: translateY(-5px, -5px);  /* Grow to 1.5 scale at 50% of animation */
+    }
+    50% {
+      transform: translateY(-3px, -3px);  /* Settle at 1.2 scale at the end of the animation */
+    }
+    100% {
+      transform: translateY(-3px, -3px);
+    }
+  }
+
+  img {
+    animation: none;
+  }
+  .dashboard-stats-panel__list-item-text {
+    animation: none;
+  }
+  .dashboard-stats-panel__list-item-rank-circle {
+    z-index: 5;
+    animation: none;
+  }
+
+  &:hover{
+    img {
+      animation: growImage 1s ease-in-out;
+      transform: scale(1.2);
+    }
+    .dashboard-stats-panel__list-item-text {
+      animation: shiftTextDown 1s ease-in-out;
+      transform: translateY(10px);
+    }
+    .dashboard-stats-panel__list-item-rank-circle {
+      animation: growImage 1s ease-in-out;
+      transform: scale(1.2);
+    }
+  }
+
+
+
 }

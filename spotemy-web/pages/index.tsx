@@ -48,7 +48,9 @@ export default function Dashboard() {
     }, [])
 
     useEffect(() => {
-        if (me) setLoading(false)
+        if (me) {
+            setLoading(false)
+        }
     }, [me])
 
     if (loading) {
@@ -78,9 +80,13 @@ export default function Dashboard() {
                         <Text color={WHITE} size={30}>
                             {me!.display_name}
                         </Text>
-                        <Text paddingY={5}>
-                            {me!.id}
-                        </Text>
+                        <Text
+                            paddingY={5}
+                            onClick={() => {
+                                const newTab: Window = window.open('', '_blank');
+                                newTab.location = me!.external_urls.spotify;
+                            }}
+                        >{me!.id}</Text>
                     </Container>
                 </Container>
                 <Container>

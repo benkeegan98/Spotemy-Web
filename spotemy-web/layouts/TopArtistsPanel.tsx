@@ -72,6 +72,7 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                          onClick={() => onClickArtist(artist.id)}
                     >
                         <Container
+                            className="dashboard-stats-panel__list-item-rank-circle"
                             backgroundColor={GREEN}
                             height="25px"
                             width="25px"
@@ -84,17 +85,19 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                             <Text color={WHITE}>{(index + 1).toString() + ''}</Text>
                         </Container>
                         <Image
-                            height={150}
-                            width={150}
+                            height={100}
+                            width={100}
                             src={artist.images[0].url}
                             padding={{
                                 right: 5
                             }}
                         />
-                        <Text
-                            color={WHITE}
-                            paddingY={5}
-                        >{artist.name}</Text>
+                        <div className="dashboard-stats-panel__list-item-text">
+                            <Text
+                                color={WHITE}
+                                paddingY={5}
+                            >{artist.name}</Text>
+                        </div>
                     </div>
                 ))}
             </div>
