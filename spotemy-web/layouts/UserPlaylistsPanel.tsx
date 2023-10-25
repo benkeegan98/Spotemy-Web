@@ -4,6 +4,7 @@ import { BLACK, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
 import { useRouter } from "next/router";
 import { useDesktopBreakpoints } from "../hooks";
+import {RiDiscFill} from "react-icons/ri";
 
 type UserPlaylistsPanelProps = {
 
@@ -22,94 +23,54 @@ const UserPlaylistsPanel = (props: UserPlaylistsPanelProps) => {
     }
 
     return (
-        <Container
-            backgroundColor={BLACK}
-            borderRadius={20}
-            height={100}
-            width={100}
-            padding={10}
-        >
-            <Text
-                color={WHITE}
-                size={30}
-                padding={{
-                    bottom: 10
-                }}
-            >My Playlists</Text>
-            <Container
-                scroll
-                horizontal={!isDesktop}
-            >
+        <>
+            <div className="dashboard-stats-panel__header">
+                <div className="dashboard-stats-panel__icon-title">
+                    <RiDiscFill size={30}/>
+                    <Text color={WHITE} size={30}>My Playlists</Text>
+                </div>
+            </div>
+            <div className="playlists__list">
                 {likedSongs && likedSongs.items && (
-                    <Container
-                        height="auto"
-                        width={100}
-                        horizontal={isDesktop}
-                        padding={{
-                            bottom: 5,
-                            right: isDesktop ? 0 : 5
-                        }}
-                        borderRadius={5}
-                        onClick={() => console.log('albums')}
-                    >
-                        <Container
-                            height={isDesktop ? "100px" : "150px"}
-                            width={isDesktop ? "100px" : "150px"}
-                            horizontal
-                            wrap
-                            
-                        >
+                    <div className="playlist-item" onClick={() => console.log(likedSongs)}>
+                        <div className="playlist-item__liked-songs-thumbnail">
                             {likedSongs.items.slice(0,4).map((track: SpotifyApi.SavedTrackObject, key: number) => (
                                 <Image
                                     key={key}
                                     src={track.track.album.images[0].url}
-                                    height={isDesktop ? 50 : 75}
-                                    width={isDesktop ? 50 : 75}
+                                    height={50}
+                                    width={50}
                                 />
                             ))}
-                        </Container>
-                        <Container
-                            centerY
-                            padding={{
-                                left: 10,
-                            }}
-                        >
+                        </div>
+                        <div className="playlist-item__label">
                             <Text color={WHITE}>Liked Songs</Text>
                             <Text>{`${likedSongs.total} track${likedSongs.total !== 1 ? 's' : ''}`}</Text>
-                        </Container>
-                    </Container>
+                        </div>
+                    </div>
                 )}
 
                 {playlists && playlists.items && playlists.items.map((playlist: SpotifyApi.PlaylistObjectSimplified, index: number) => (
-                    <Container
-                        height="auto"
-                        width={isDesktop ? 100 : 150}
-                        horizontal={isDesktop}
-                        padding={{
-                            bottom: 5,
-                            right: isDesktop ? 0 : 5
-                        }}
-                        borderRadius={5}
+                    <div
+                        key={index}
+                        className="playlist-item"
                         onClick={() => onClickPlaylist(playlist.id)}
                     >
-                        <Image
-                            src={playlist.images[0].url}
-                            height={isDesktop ? 100 : 150}
-                            width={isDesktop ? 100 : 150}
-                        />
-                        <Container
-                            centerY
-                            padding={{
-                                left: 10,
-                            }}
-                        >
+                        <div className="playlist-item__thumbnail">
+                            <Image
+                                src={playlist.images[0].url}
+                                height={100}
+                                width={100}
+                            />
+                        </div>
+                        <div className="playlist-item__label">
                             <Text color={WHITE}>{playlist.name}</Text>
                             <Text>{`${playlist.tracks.total} track${playlist.tracks.total !== 1 ? 's' : ''}`}</Text>
-                        </Container>
-                    </Container>
+                        </div>
+                    </div>
                 ))}
-            </Container>
-        </Container>
+            </div>
+        </>
     )
 }
 

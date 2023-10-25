@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Container, Image, LogoHeader, Text, PopularityFlame } from '../../../components';
+import { Container, Image, LogoHeader, Text } from '../../../components';
 import { BLACK, WHITE, GREY_20, GREEN_LIGHT_20, GREEN_LIGHT_40, GREEN_LIGHT_80, GREEN_LIGHT_60, GREY_80 } from '../../../styles/colors';
 import spotify from '../../../spotify/api';
 import { getDurationString } from '../../../utils';
@@ -43,7 +43,7 @@ const ArtistPage = () => {
                     <Container width={100} paddingX={15}>
                         <Container horizontal justifyContent='space-between'>
                             <Text color={WHITE} size={40} padding={{ bottom: 5, }}>{artist.name}</Text>
-                            <PopularityFlame score={artist.popularity} size="small" />
+                            {/*<PopularityFlame score={artist.popularity} size="small" />*/}
                         </Container>
                         <Container horizontal>
                             {artist.genres.map((genre: string, i: number) => {
@@ -71,6 +71,7 @@ const ArtistPage = () => {
                     >
                         {topTracks ? topTracks.map((track: SpotifyApi.TrackObjectFull, i: number) => (
                             <Container
+                                key={i}
                                 horizontal
                                 borderRadius={15}
                                 padding={5}

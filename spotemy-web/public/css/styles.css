@@ -1,0 +1,207 @@
+.dashboard-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px 15px;
+  width: 100%;
+  padding: 30px 15px;
+}
+@media (min-width: 767px) {
+  .dashboard-stats-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: min-content min-content min-content;
+    grid-template-areas: "playlists artists" "playlists songs" "playlists recents";
+  }
+}
+@media (min-width: 1100px) {
+  .dashboard-stats-container {
+    grid-template-columns: 1fr 3fr;
+  }
+}
+
+.dashboard-stats__panel {
+  padding: 15px;
+  background-color: black;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.dashboard-stats-panel__time-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.dashboard-stats__playlists {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+@media (min-width: 767px) {
+  .dashboard-stats__playlists {
+    max-height: 100vh;
+    grid-area: playlists;
+  }
+}
+
+@media (min-width: 767px) {
+  .dashboard-stats__artists {
+    grid-area: artists;
+  }
+}
+
+@media (min-width: 767px) {
+  .dashboard-stats__songs {
+    grid-area: songs;
+  }
+}
+
+@media (min-width: 767px) {
+  .dashboard-stats__recently-played {
+    grid-area: recents;
+  }
+}
+
+.playlists__list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  column-gap: 7px;
+}
+@media (min-width: 767px) {
+  .playlists__list {
+    flex-direction: column;
+    overflow-x: unset;
+    overflow-y: auto;
+    column-gap: unset;
+    row-gap: 7px;
+  }
+}
+
+.playlist-item {
+  display: grid;
+  grid-template-columns: min-content;
+  grid-template-rows: 100px min-content;
+  grid-template-areas: "thumbnail" "data";
+  grid-gap: 7px;
+}
+@media (min-width: 767px) {
+  .playlist-item {
+    grid-template-columns: 100px 1fr;
+    grid-template-rows: min-content;
+    grid-template-areas: "thumbnail data";
+  }
+}
+
+.playlist-item__label {
+  grid-area: data;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 767px) {
+  .playlist-item__label {
+    margin: auto 0;
+  }
+}
+
+.playlist-item__liked-songs-thumbnail {
+  grid-area: thumbnail;
+  display: grid;
+  grid-template-rows: 50px 50px;
+  grid-template-columns: 50px 50px;
+}
+
+.playlist-item__thumbnail {
+  grid-area: thumbnail;
+  height: 100px;
+  width: 100px;
+}
+
+.dashboard-stats-panel__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0 15px;
+}
+
+.dashboard-stats-panel__icon-title {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.dashboard-stats-panel__right-panel-list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: clip;
+  column-gap: 7px;
+}
+
+.dashboard-stats-panel__list-item {
+  cursor: pointer;
+}
+@keyframes growImage {
+  0% {
+    transform: scale(1); /* Initial scale */
+  }
+  25% {
+    transform: scale(1.4); /* Grow to 1.5 scale at 50% of animation */
+  }
+  50% {
+    transform: scale(1.2); /* Settle at 1.2 scale at the end of the animation */
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+@keyframes shiftTextDown {
+  0% {
+    transform: translateY(0); /* Initial scale */
+  }
+  25% {
+    transform: translateY(15px); /* Grow to 1.5 scale at 50% of animation */
+  }
+  50% {
+    transform: translateY(10px); /* Settle at 1.2 scale at the end of the animation */
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+@keyframes shiftRankCircle {
+  0% {
+    transform: translate(0, 0); /* Initial scale */
+  }
+  25% {
+    transform: translateY(-5px, -5px); /* Grow to 1.5 scale at 50% of animation */
+  }
+  50% {
+    transform: translateY(-3px, -3px); /* Settle at 1.2 scale at the end of the animation */
+  }
+  100% {
+    transform: translateY(-3px, -3px);
+  }
+}
+.dashboard-stats-panel__list-item img {
+  animation: none;
+}
+.dashboard-stats-panel__list-item .dashboard-stats-panel__list-item-text {
+  animation: none;
+}
+.dashboard-stats-panel__list-item .dashboard-stats-panel__list-item-rank-circle {
+  z-index: 5;
+  animation: none;
+}
+.dashboard-stats-panel__list-item:hover img {
+  animation: growImage 1s ease-in-out;
+  transform: scale(1.2);
+}
+.dashboard-stats-panel__list-item:hover .dashboard-stats-panel__list-item-text {
+  animation: shiftTextDown 1s ease-in-out;
+  transform: translateY(10px);
+}
+.dashboard-stats-panel__list-item:hover .dashboard-stats-panel__list-item-rank-circle {
+  animation: growImage 1s ease-in-out;
+  transform: scale(1.2);
+}

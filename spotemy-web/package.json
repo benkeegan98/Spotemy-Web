@@ -8,16 +8,21 @@
   "dependencies": {
     "@types/styled-components": "^5.1.26",
     "chroma-js": "^2.4.2",
+    "gulp-sass": "^5.1.0",
     "next": "latest",
+    "node-sass": "^7.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "sass": "^1.68.0",
     "spotify-web-api-js": "^1.5.2",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@types/node": "18.11.11",
     "@types/react": "18.0.26",
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0",
     "typescript": "4.9.3"
   }
 }

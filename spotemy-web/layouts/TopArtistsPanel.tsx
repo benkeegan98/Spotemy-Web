@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button, Container, Image, Text } from "../components";
 import { GREEN, WHITE, BLACK } from "../styles/colors";
 import spotify from "../spotify/api";
+import {IoPersonSharp} from "react-icons/io5";
 
 type TopArtistsPanelProps = {
 
@@ -45,47 +46,33 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
     }
 
     else return (
-        <Container
-            backgroundColor={BLACK}
-            borderRadius={20}
-            height={100}
-            width={100}
-            padding={10}
-        >
-            <Container
-                horizontal
-                justifyContent="space-between"
-                padding={{
-                    bottom: 10
-                }}
-            >
-                <Text color={WHITE} size={30}>Top Artists</Text>
-                <Container
-                    horizontal
-                >
+        <>
+            <div className="dashboard-stats-panel__header">
+                <div className="dashboard-stats-panel__icon-title">
+                    <IoPersonSharp size={30}/>
+                    <Text color={WHITE} size={30}>Top Artists</Text>
+                </div>
+                <div className="dashboard-stats-panel__time-controls">
                     {Object.values(timeFrames).map((timeFrame: TimeFrame, index: number) => (
                         <Button
                             variant={activeTimeRange === timeFrame ? "secondary" : "primary"}
                             key={index}
                             onClick={() => setActiveTimeRange(timeFrame)}
-                            margin={{
-                                left: 5
-                            }}
                             padding={10}
                         >
                             <Text color={activeTimeRange === timeFrame ? "" : WHITE}>{timeFrame.label}</Text>
                         </Button>
                     ))}
-                </Container>
-            </Container>
-            <Container horizontal scroll>
+                </div>
+            </div>
+            <div className="dashboard-stats-panel__right-panel-list">
                 {topArtists && topArtists.items && topArtists.items.map((artist, index) => (
-                    <Container
-                        key={index}
-                        borderRadius={5}
-                        onClick={() => onClickArtist(artist.id)}
+                    <div className="dashboard-stats-panel__list-item"
+                         key={index}
+                         onClick={() => onClickArtist(artist.id)}
                     >
                         <Container
+                            className="dashboard-stats-panel__list-item-rank-circle"
                             backgroundColor={GREEN}
                             height="25px"
                             width="25px"
@@ -98,21 +85,23 @@ const TopArtistsPanel = (props: TopArtistsPanelProps) => {
                             <Text color={WHITE}>{(index + 1).toString() + ''}</Text>
                         </Container>
                         <Image
-                            height={150}
-                            width={150}
+                            height={100}
+                            width={100}
                             src={artist.images[0].url}
                             padding={{
                                 right: 5
                             }}
                         />
-                        <Text
-                            color={WHITE}
-                            paddingY={5}
-                        >{artist.name}</Text>
-                    </Container>
+                        <div className="dashboard-stats-panel__list-item-text">
+                            <Text
+                                color={WHITE}
+                                paddingY={5}
+                            >{artist.name}</Text>
+                        </div>
+                    </div>
                 ))}
-            </Container>
-        </Container>
+            </div>
+        </>
     )
 
 }

@@ -43,8 +43,11 @@ interface ContainerProps {
         left?: `${number}px`,
         right?: `${number}px`
     },
+    gapX?: number,
+    gapY?: number,
     wrap?: boolean,
     onClick?: React.MouseEventHandler<HTMLDivElement>,
+    className?: string,
 }
 
 export default styled.div<ContainerProps>`
@@ -168,6 +171,12 @@ export default styled.div<ContainerProps>`
             background-color: ${GREY_80};
         }
         
+    `};
+
+    ${props => (props.gapX || props.gapY) && css`
+        * {
+            margin: ${`${props.gapY || '0'}px ${props.gapX || '0'}px`};
+        }
     `};
 
 `
