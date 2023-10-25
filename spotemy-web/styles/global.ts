@@ -1,7 +1,10 @@
 import { createGlobalStyle } from "styled-components"
 import { GREEN, GREY_80 } from "./colors";
+import variables from './variables';
 
 const GlobalStyle = createGlobalStyle`
+    ${variables};
+    
     *{
         margin: 0;
         padding: 0;

@@ -3,6 +3,7 @@ import { Button, Container, Image, Text } from "../components";
 import { BLACK, GREEN, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
 import { useRouter } from "next/router";
+import {IoTimeOutline} from "react-icons/io5";
 
 type RecentlyPlayedPanelProps = {
 
@@ -23,50 +24,39 @@ const RecentlyPlayedPanel = (props: RecentlyPlayedPanelProps) => {
     }
 
     else return (
-        <Container
-            backgroundColor={BLACK}
-            borderRadius={20}
-            height={100}
-            width={100}
-            padding={10}
-        >
-            <Container
-                horizontal
-                justifyContent="space-between"
-                padding={{
-                    bottom: 10
-                }}
-            >
-                <Text color={WHITE} size={30}>Recently Played</Text>
-            </Container>
-            <Container horizontal scroll>
+        <>
+            <div className="dashboard-stats-panel__header">
+                <div className="dashboard-stats-panel__icon-title">
+                    <IoTimeOutline size={30} />
+                    <Text color={WHITE} size={30}>Recently Played</Text>
+                </div>
+            </div>
+            <div className="dashboard-stats-panel__right-panel-list">
                 {recentlyPlayedTracks && recentlyPlayedTracks.tracks && recentlyPlayedTracks.tracks.map((track: SpotifyApi.TrackObjectFull, index: number) => (
-                    <Container
-                        key={index}
-                        borderRadius={5}
-                        onClick={() => onClickSong(track.id)}
+                    <div className="dashboard-stats-panel__list-item"
+                         key={index}
+                         onClick={() => onClickSong(track.id)}
                     >
                         <Image
                             height={150}
                             width={150}
                             src={track.album.images[0].url}
-                            padding={{
-                                right: 5
-                            }}
                         />
-                        <Text
-                            color={WHITE}
-                        >{track.name}</Text>
-                        <Text
-                        >{track.artists[0].name}</Text>
-                        <Text
-                            color={WHITE}
-                        >{track.album.name}</Text>
+                        <Container paddingX={2}>
+                            <Text
+                                color={WHITE}
+                            >{track.name}</Text>
+                            <Text
+                            >{track.artists[0].name}</Text>
+                            <Text
+                                color={WHITE}
+                            >{track.album.name}</Text>
+                        </Container>
                         
-                    </Container>
+                    </div>
                 ))}
-            </Container>
-        </Container>
+            </div>
+        </>
     )
 
 }

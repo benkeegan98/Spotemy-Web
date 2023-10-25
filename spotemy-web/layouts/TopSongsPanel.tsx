@@ -3,6 +3,7 @@ import { Button, Container, Image, Text } from "../components";
 import { BLACK, GREEN, WHITE } from "../styles/colors";
 import spotify from "../spotify/api";
 import { useRouter } from "next/router";
+import {IoMusicalNotesSharp} from "react-icons/io5";
 
 type TopSongsPanelProps = {
 
@@ -45,45 +46,30 @@ const TopSongsPanel = (props: TopSongsPanelProps) => {
     }
 
     else return (
-        <Container
-            backgroundColor={BLACK}
-            borderRadius={20}
-            height={100}
-            width={100}
-            padding={10}
-        >
-            <Container
-                horizontal
-                justifyContent="space-between"
-                padding={{
-                    bottom: 10
-                }}
-            >
-                <Text color={WHITE} size={30}>Top Songs</Text>
-                <Container
-                    horizontal
-                >
+        <>
+            <div className="dashboard-stats-panel__header">
+                <div className="dashboard-stats-panel__icon-title">
+                    <IoMusicalNotesSharp size={30}/>
+                    <Text color={WHITE} size={30}>Top Songs</Text>
+                </div>
+                <div className="dashboard-stats-panel__time-controls">
                     {Object.values(timeFrames).map((timeFrame: TimeFrame, index: number) => (
                         <Button
                             variant={activeTimeRange === timeFrame ? "secondary" : "primary"}
                             key={index}
                             onClick={() => setActiveTimeRange(timeFrame)}
-                            margin={{
-                                left: 5
-                            }}
                             padding={10}
                         >
                             <Text color={activeTimeRange === timeFrame ? "" : WHITE}>{timeFrame.label}</Text>
                         </Button>
                     ))}
-                </Container>
-            </Container>
-            <Container horizontal scroll>
+                </div>
+            </div>
+            <div className="dashboard-stats-panel__right-panel-list">
                 {topSongs && topSongs.items && topSongs.items.map((song, index) => (
-                    <Container
-                        key={index}
-                        borderRadius={5}
-                        onClick={() => onClickSong(song.id)}
+                    <div className="dashboard-stats-panel__list-item"
+                         key={index}
+                         onClick={() => onClickSong(song.id)}
                     >
                         <Container
                             backgroundColor={GREEN}
@@ -106,20 +92,20 @@ const TopSongsPanel = (props: TopSongsPanelProps) => {
                             }}
                         />
                         <Container paddingX={2}>
-                        <Text
-                            color={WHITE}
-                        >{song.name}</Text>
-                        <Text
-                        >{song.artists[0].name}</Text>
-                        <Text
-                            color={WHITE}
-                        >{song.album.name}</Text>
+                            <Text
+                                color={WHITE}
+                            >{song.name}</Text>
+                            <Text
+                            >{song.artists[0].name}</Text>
+                            <Text
+                                color={WHITE}
+                            >{song.album.name}</Text>
                         </Container>
                         
-                    </Container>
+                    </div>
                 ))}
-            </Container>
-        </Container>
+            </div>
+        </>
     )
 
 }

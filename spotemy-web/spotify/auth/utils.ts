@@ -1,4 +1,5 @@
 export const getTokenFromUrl = () => {
+    console.log("Looking to parse token from URL: ", window.location);
     return window.location.hash
         .substring(1)
         .split("&")

@@ -1,0 +1,137 @@
+
+.dashboard-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px 15px;
+  width: 100%;
+  padding: 30px 15px;
+
+  @media (min-width: 767px) {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: min-content min-content min-content;
+    grid-template-areas:
+    "playlists artists"
+    "playlists songs"
+    "playlists recents";
+  }
+}
+
+.dashboard-stats__panel {
+  padding: 15px;
+  background-color: black;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.dashboard-stats-panel__time-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.dashboard-stats__playlists {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  @media (min-width: 767px) {
+    max-height: 100vh;
+    grid-area: playlists;
+  }
+}
+
+.dashboard-stats__artists {
+  @media (min-width: 767px) {
+    grid-area: artists;
+  }
+}
+
+.dashboard-stats__songs {
+  @media (min-width: 767px) {
+    grid-area: songs;
+  }
+}
+
+.dashboard-stats__recently-played {
+  @media (min-width: 767px) {
+    grid-area: recents;
+  }
+}
+
+// playlists
+.playlists__list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  column-gap: 7px;
+  @media (min-width: 767px) {
+    flex-direction: column;
+    overflow-x: unset;
+    overflow-y: auto;
+    column-gap: unset;
+    row-gap: 7px;
+  }
+}
+
+.playlist-item {
+  display: grid;
+  grid-template-columns: min-content;
+  grid-template-rows: 150px min-content;
+  grid-template-areas: "thumbnail" "data";
+  grid-gap: 7px;
+  @media (min-width: 767px) {
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: min-content;
+    grid-template-areas: "thumbnail data";
+  }
+}
+
+.playlist-item__label {
+  grid-area: data;
+
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 767px) {
+    margin: auto 0;
+  }
+
+}
+
+.playlist-item__liked-songs-thumbnail {
+  grid-area: thumbnail;
+
+  display: grid;
+  grid-template-rows: 75px 75px;
+  grid-template-columns: 75px 75px;
+}
+
+.playlist-item__thumbnail {
+  grid-area: thumbnail;
+  height: 150px;
+  width: 150px;
+}
+
+// right panels desktop
+
+.dashboard-stats-panel__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0 15px;
+}
+
+.
+
+.dashboard-stats-panel__icon-title {
+  display: flex;
+  align-items: center;
+  column-gap: 7px;
+}
+
+.dashboard-stats-panel__right-panel-list {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: clip;
+  column-gap: 7px;
+}

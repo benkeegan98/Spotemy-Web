@@ -1,9 +1,5 @@
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Container, Text, Button, LogoHeader } from '../../components'
-import spotify from '../../spotify/api'
-import { authEndpoint, loginUrl } from '../../spotify/auth/spotify'
-import { clearUrlHash, getTokenFromUrl } from '../../spotify/auth/utils'
 import { IoMusicalNotesSharp, IoPersonSharp } from "react-icons/io5";
 import { RiDiscFill } from "react-icons/ri";
 import DiscoverSongs from '../../layouts/DiscoverSongs'

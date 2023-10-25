@@ -5,29 +5,39 @@ import AuthContext from '../../contexts/AuthContext'
 import spotify from '../../spotify/api'
 import { authEndpoint, loginUrl } from '../../spotify/auth/spotify'
 import { clearUrlHash, getTokenFromUrl } from '../../spotify/auth/utils'
+import exp from "constants";
+import {useRouter} from "next/router";
 
 export default function AuthPage() {
 
- 	const {
-		token,
-		setToken
-	} = useContext(AuthContext);
+ 	// const {
+	// 	token,
+	// 	setToken
+	// } = useContext(AuthContext);
+    const router = useRouter();
 
   	useEffect(() => {
 
     	const _spotifyToken = getTokenFromUrl();
-
-		// setTimeout(() => {
 		if ('access_token' in _spotifyToken) {
-			clearUrlHash()
-			setToken(_spotifyToken['access_token'] as string)
+            console.log("Token parsed from URL");
+			clearUrlHash();
+			// setToken(_spotifyToken['access_token'] as string);
+            console.log("old localStorage: ", window.localStorage);
+            console.log("Setting token data in local storage session");
+            window.localStorage.setItem("spotify__token", _spotifyToken['access_token'] as string);
+            window.localStorage.setItem("spotify__token-expires-in", _spotifyToken['expires_in'] as string);
+            window.localStorage.setItem("spotify__token-time", String(new Date().getTime()));
+            console.log("Token information in session, redirecting to /...");
+            console.log("updated localStorage: ", window.localStorage);
+            router.replace('/');
 		}
-		// }, 500)
-    
+
     }, [])
 
     const handleLogin = async () => {
-        window.location.href = loginUrl
+          console.log("handle login clicked");
+          window.location.href = loginUrl
     }
 
     return (
@@ -40,7 +50,7 @@ export default function AuthPage() {
 
             <Button
                 variant="primary"
-                onClick={handleLogin}
+                onClick={() => handleLogin()}
             >Sign in with Spotify</Button>
         </Container>
     )
