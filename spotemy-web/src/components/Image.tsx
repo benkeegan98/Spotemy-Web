@@ -22,6 +22,7 @@ interface ImageProps {
     },
     marginY?: number,
     marginX?: number,
+    className?: string,
 }
 
 export default styled.img<ImageProps>`

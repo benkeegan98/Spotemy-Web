@@ -1,0 +1,65 @@
+
+
+.artist-page__header {
+  display: grid;
+  gap: 15px 15px;
+
+  grid-template-columns: 50px auto 50px;
+  grid-template-rows: 150px max-content min-content;
+  grid-template-areas:
+        ". img popularity"
+        "name name name"
+        "genres genres genres";
+
+  @media (min-width: 600px) {
+    grid-template-columns: 100px auto 100px;
+  }
+
+  @media (min-width: 767px) {
+    grid-template-columns: 150px 3fr min-content;
+    grid-template-rows: 75px 75px;
+    grid-template-areas:
+        "img name popularity"
+        "img genres genres";
+  }
+}
+
+.artist-page__img {
+  grid-area: img;
+  align-self: center;
+  justify-self: center;
+
+  cursor: pointer;
+}
+
+.artist-page__name {
+  grid-area: name;
+  align-self: start;
+  justify-self: center;
+
+  @media (min-width: 767px) {
+    justify-self: start;
+    align-self: end;
+  }
+}
+
+.percentage-circle__wrap {
+  grid-area: popularity;
+  align-self: start;
+  justify-self: end;
+
+  @media (min-width: 767px) {
+    align-self: end;
+  }
+}
+
+.artist-page__genres {
+  grid-area: genres;
+  align-self: start;
+
+  justify-self: center;
+
+  @media (min-width: 767px) {
+    justify-self: start;
+  }
+}

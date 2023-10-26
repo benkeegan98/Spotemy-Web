@@ -1,3 +1,5 @@
+@import "./components/percentage-circle";
+@import "./pages/artist-page";
 
 .dashboard-stats-container {
   display: flex;
@@ -149,13 +151,13 @@
       transform: scale(1); /* Initial scale */
     }
     25% {
-      transform: scale(1.4); /* Grow to 1.5 scale at 50% of animation */
+      transform: scale(1.2); /* Grow to 1.5 scale at 50% of animation */
     }
     50% {
-      transform: scale(1.2); /* Settle at 1.2 scale at the end of the animation */
+      transform: scale(1.1); /* Settle at 1.2 scale at the end of the animation */
     }
     100% {
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
   }
 
@@ -164,7 +166,7 @@
       transform: translateY(0); /* Initial scale */
     }
     25% {
-      transform: translateY(15px);  /* Grow to 1.5 scale at 50% of animation */
+      transform: translateY(12px);  /* Grow to 1.5 scale at 50% of animation */
     }
     50% {
       transform: translateY(10px);  /* Settle at 1.2 scale at the end of the animation */
@@ -191,6 +193,7 @@
 
   img {
     animation: none;
+    transform-origin: 0 0;
   }
   .dashboard-stats-panel__list-item-text {
     animation: none;
@@ -203,7 +206,7 @@
   &:hover{
     img {
       animation: growImage 1s ease-in-out;
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
     .dashboard-stats-panel__list-item-text {
       animation: shiftTextDown 1s ease-in-out;

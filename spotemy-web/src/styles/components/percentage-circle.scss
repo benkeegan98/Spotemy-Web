@@ -1,0 +1,56 @@
+@import '../colors';
+
+.percentage-circle__wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: $color-gray-darkest;
+
+  --deg: 0deg;
+}
+
+.percentage-circle__wrap .circle .mask,
+.percentage-circle__wrap .circle .fill {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.percentage-circle__wrap .circle .mask {
+  clip: rect(0px, 50px, 50px, 25px);
+}
+
+.percentage-circle__wrap .circle .mask .fill {
+  clip: rect(0px, 25px, 50px, 0px);
+  background-color: $color-green;
+}
+.percentage-circle__wrap .circle .mask.full,
+.percentage-circle__wrap .circle .fill {
+  animation: fill ease-in-out 2s;
+  transform: rotate(var(--deg, 0deg));
+}
+
+@keyframes fill {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(var(--deg, 0deg));
+  }
+}
+
+.percentage-circle__wrap .inside-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: $color-black;
+  line-height: 44px;
+  text-align: center;
+  margin-top: 3px;
+  margin-left: 3px;
+  position: absolute;
+  z-index: 100;
+  font-weight: 700;
+  font-size: 1.5em;
+}

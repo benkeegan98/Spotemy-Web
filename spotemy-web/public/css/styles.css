@@ -1,3 +1,118 @@
+.percentage-circle__wrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #222;
+  --deg: 0deg;
+}
+
+.percentage-circle__wrap .circle .mask,
+.percentage-circle__wrap .circle .fill {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.percentage-circle__wrap .circle .mask {
+  clip: rect(0px, 50px, 50px, 25px);
+}
+
+.percentage-circle__wrap .circle .mask .fill {
+  clip: rect(0px, 25px, 50px, 0px);
+  background-color: #1DB954;
+}
+
+.percentage-circle__wrap .circle .mask.full,
+.percentage-circle__wrap .circle .fill {
+  animation: fill ease-in-out 2s;
+  transform: rotate(var(--deg, 0deg));
+}
+
+@keyframes fill {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(var(--deg, 0deg));
+  }
+}
+.percentage-circle__wrap .inside-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #000;
+  line-height: 44px;
+  text-align: center;
+  margin-top: 3px;
+  margin-left: 3px;
+  position: absolute;
+  z-index: 100;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.artist-page__header {
+  display: grid;
+  gap: 15px 15px;
+  grid-template-columns: 50px auto 50px;
+  grid-template-rows: 150px max-content min-content;
+  grid-template-areas: ". img popularity" "name name name" "genres genres genres";
+}
+@media (min-width: 600px) {
+  .artist-page__header {
+    grid-template-columns: 100px auto 100px;
+  }
+}
+@media (min-width: 767px) {
+  .artist-page__header {
+    grid-template-columns: 150px 3fr min-content;
+    grid-template-rows: 75px 75px;
+    grid-template-areas: "img name popularity" "img genres genres";
+  }
+}
+
+.artist-page__img {
+  grid-area: img;
+  align-self: center;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.artist-page__name {
+  grid-area: name;
+  align-self: start;
+  justify-self: center;
+}
+@media (min-width: 767px) {
+  .artist-page__name {
+    justify-self: start;
+    align-self: end;
+  }
+}
+
+.percentage-circle__wrap {
+  grid-area: popularity;
+  align-self: start;
+  justify-self: end;
+}
+@media (min-width: 767px) {
+  .percentage-circle__wrap {
+    align-self: end;
+  }
+}
+
+.artist-page__genres {
+  grid-area: genres;
+  align-self: start;
+  justify-self: center;
+}
+@media (min-width: 767px) {
+  .artist-page__genres {
+    justify-self: start;
+  }
+}
+
 .dashboard-stats-container {
   display: flex;
   flex-direction: column;
@@ -85,6 +200,7 @@
   grid-template-rows: 100px min-content;
   grid-template-areas: "thumbnail" "data";
   grid-gap: 7px;
+  cursor: pointer;
 }
 @media (min-width: 767px) {
   .playlist-item {
@@ -146,13 +262,13 @@
     transform: scale(1); /* Initial scale */
   }
   25% {
-    transform: scale(1.4); /* Grow to 1.5 scale at 50% of animation */
+    transform: scale(1.2); /* Grow to 1.5 scale at 50% of animation */
   }
   50% {
-    transform: scale(1.2); /* Settle at 1.2 scale at the end of the animation */
+    transform: scale(1.1); /* Settle at 1.2 scale at the end of the animation */
   }
   100% {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 @keyframes shiftTextDown {
@@ -160,7 +276,7 @@
     transform: translateY(0); /* Initial scale */
   }
   25% {
-    transform: translateY(15px); /* Grow to 1.5 scale at 50% of animation */
+    transform: translateY(12px); /* Grow to 1.5 scale at 50% of animation */
   }
   50% {
     transform: translateY(10px); /* Settle at 1.2 scale at the end of the animation */
@@ -185,6 +301,7 @@
 }
 .dashboard-stats-panel__list-item img {
   animation: none;
+  transform-origin: 0 0;
 }
 .dashboard-stats-panel__list-item .dashboard-stats-panel__list-item-text {
   animation: none;
@@ -195,7 +312,7 @@
 }
 .dashboard-stats-panel__list-item:hover img {
   animation: growImage 1s ease-in-out;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 .dashboard-stats-panel__list-item:hover .dashboard-stats-panel__list-item-text {
   animation: shiftTextDown 1s ease-in-out;

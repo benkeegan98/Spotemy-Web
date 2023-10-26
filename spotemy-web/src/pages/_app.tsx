@@ -1,7 +1,7 @@
 // import "../styles/globals.css"
 import AuthContext, { AuthStore } from "../contexts/AuthContext";
 import GlobalStyle from "../styles/global";
-import '../public/css/styles.css';
+import '../../public/css/styles.css';
 
 export default function App({ Component, pageProps }) {
     return (

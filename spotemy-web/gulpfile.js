@@ -19,11 +19,11 @@ gulp.task('build-and-start', gulp.series('next-build', 'next-start'));
 
 gulp.task('compile-scss', function () {
     return gulp
-        .src('./styles/styles.scss') // Replace with the actual path to your styles.scss file
+        .src('./src/styles/styles.scss') // Replace with the actual path to your styles.scss file
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./public/css')); // Replace with the path where you want to save the compiled CSS
 });
 
 gulp.task('watch-scss', function () {
-    gulp.watch('./styles/**/*.scss', gulp.series('compile-scss'));
+    gulp.watch('./src/styles/**/*.scss', gulp.series('compile-scss'));
 });
